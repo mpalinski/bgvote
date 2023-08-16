@@ -26,7 +26,7 @@
         
         <br><br>
         
-        <input type="submit" value="Submit">
+        <input type="submit" value="Click!">
     </form>
 
 </div>
@@ -50,9 +50,9 @@
         data.forEach(function(row) {
             var option = new Option(row[3], row[3]); // Text, Value
             select.append(option);
-            if (row[3] === "gierki") { // Change to your specific condition
-                option.disabled = true;
-            }
+            // if (row[3] === "gierki") { // Change to your specific condition
+            //     option.disabled = true;
+            // }
         });
 
         // Initialize Select2
