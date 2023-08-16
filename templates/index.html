@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Selection</title>  
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="//cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="//cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+</head>
+
+<body>
+    
+<div class="container">
+    
+    <img src="static/img/choose_wisely2.jpg" style="height: 150px" alt="Choose a game">
+
+    <img src="static/img/select.jpg" alt="Choose a game">
+
+    <form action="/submit" method="POST">
+        <select id="gameSelect" class="js-example-basic-multiple" name="states[]" multiple="multiple" style="width: 50%">
+            <!-- <option></option> -->
+          </select>
+        
+        <br><br>
+        
+        <input type="submit" value="Submit">
+    </form>
+
+</div>
+
+<script>
+    Papa.parse("data/bgg2000.csv", {
+        download: true,
+        complete: function(results) {
+            // 'results.data' contains parsed CSV data
+            populateSelect2(results.data);
+        }
+    });
+</script>
+
+<script>
+    function populateSelect2(data) {
+        // Assuming the first column of CSV contains option values and the second column contains option text
+        var select = $("#gameSelect"); // Replace with the actual Select2 element ID or class
+
+        data.forEach(function(row) {
+            var option = new Option(row[2], row[3]); // Text, Value
+            select.append(option);
+        });
+
+        // Initialize Select2
+        // select.select2();
+    }
+</script>
+
+    <script>
+       $(document).ready(function() {
+         $('.js-example-basic-multiple').select2(
+            {
+                width: 'resolve'
+            }
+         );
+    });
+    </script>
+
+    
+</body>
+</html>
