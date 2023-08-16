@@ -32,8 +32,9 @@
 </div>
 
 <script>
-    Papa.parse("data/bgg2000.csv", {
+    Papa.parse("https://raw.githubusercontent.com/mpalinski/bgvote/main/data/bgg2000.csv", {
         download: true,
+
         complete: function(results) {
             // 'results.data' contains parsed CSV data
             populateSelect2(results.data);
@@ -47,8 +48,11 @@
         var select = $("#gameSelect"); // Replace with the actual Select2 element ID or class
 
         data.forEach(function(row) {
-            var option = new Option(row[2], row[3]); // Text, Value
+            var option = new Option(row[3], row[3]); // Text, Value
             select.append(option);
+            if (row[3] === "gierki") { // Change to your specific condition
+                option.disabled = true;
+            }
         });
 
         // Initialize Select2
